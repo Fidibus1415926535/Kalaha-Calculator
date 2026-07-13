@@ -17,11 +17,48 @@ public class Board{
     }
 
     public Point calculateBestMove(int depth){
-        Point result = new Point();
+        Point bestResult = new Point();
         Move[] moves = new Move[6];
         for (int i = 0; i < 6; i++){
-            moves[i] = new Move(i);
+            moves[i] = new Move(i, depth - 1);
         }
-        return result;
+        bestResult.x = -100;
+        for (int i = 0; i < 6; i++){
+            int currentMoveResult = moves[i].calculateBestMove(depth - 1);
+            if (currentMoveResult > bestResult.x){
+                bestResult.x = currentMoveResult;
+                bestResult.y = i;
+            }
+        }
+        return bestResult;
+    }
+
+    public void handleMove(int move){
+        //todo
+    }
+
+    @Override
+    public String toString(){
+        String string = " ";
+        for (int i = 0; i < 6; i++){
+            string += board[0][i] + " ";
+        }
+        string += "\n" + oppKalaha + "            " + ownKalaha + "/n";
+        for (int i = 0; i < 6; i++){
+            string += board[1][i] + " ";
+        }
+        return string;
+    }
+
+    public int getOwnKalaha(){
+        return this.ownKalaha;
+    }
+
+    public int getOppKalaha(){
+        return this.oppKalaha;
+    }
+
+    public boolean myTurn(){
+        return this.myTurn;
     }
 }
