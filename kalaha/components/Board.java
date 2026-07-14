@@ -5,34 +5,26 @@ public class Board{
     private int[][] state;
     private int ownKalaha;
     private int oppKalaha;
-    private boolean myTurn;
+    private boolean playerTurn;
 
-    public Board(boolean myTurn, int[][] state, int own, int opp){
+    public Board(boolean playerTurn, int[][] state, int own, int opp){
         this.state = new int[2][6];
         for (int i = 0; i < 6; i++){
             this.state[0][i] = state[0][i];
             this.state[1][i] = state[1][i];
         }
-        this.myTurn = myTurn;
+        this.playerTurn = playerTurn;
         this.ownKalaha = own;
         this.oppKalaha = opp;
     }
 
-    public Point calculateBestMove(){
-        Point bestResult = new Point();
-        Move[] moves = new Move[6];
-        for (int i = 0; i < 6; i++){
-            moves[i] = new Move(this, i);
-        }
-        bestResult.x = -100;
-        for (int i = 0; i < 6; i++){
-            int currentMoveResult = moves[i].calculateBestMove();
-            if (currentMoveResult > bestResult.x){
-                bestResult.x = currentMoveResult;
-                bestResult.y = i;
-            }
-        }
-        return bestResult;
+    public Point calculateBestMove(int depth){
+        Point result = new Point();
+        Move minimaxRoot = new Move(this, -1);
+        Point idk = minimaxRoot.calculateBestMove(depth);
+        result.x = idk.x;
+        result.y = idk.y;
+        return result;
     }
 
     public void handleMove(int moveInt){
@@ -43,7 +35,7 @@ public class Board{
         }
         this.oppKalaha = move.resultBoard.getOppKalaha();
         this.ownKalaha = move.resultBoard.getOwnKalaha();
-        this.myTurn = move.resultBoard.getMyTurn();
+        this.playerTurn = move.resultBoard.getPlayerTurn();
     }
 
     @Override
@@ -67,8 +59,8 @@ public class Board{
         return this.oppKalaha;
     }
 
-    public boolean myTurn(){
-        return this.myTurn;
+    public boolean playerTurn(){
+        return this.playerTurn;
     }
 
     public int[][] getState(){
@@ -84,11 +76,11 @@ public class Board{
     }
 
     public void toggleTurn(){
-        this.myTurn = !this.myTurn;
+        this.playerTurn = !this.playerTurn;
     }
 
-    public boolean getMyTurn(){
-        return this.myTurn;
+    public boolean getPlayerTurn(){
+        return this.playerTurn;
     }
 
     public void incrementOwnKalaha(int value){
