@@ -4,12 +4,12 @@ import components.Game;
 
 public class Main{
     public static void main(String[] args){
-        if (args[0] == null) {
+        if (args.length == 0) {
             System.out.println("Bitte gebe an, wer starten soll (P/b)");
             System.exit(-1);
         }
         boolean playerStarting;
-        if (args[1] == "b") playerStarting = false;
+        if ("b".equals(args[0])) playerStarting = false;
         else playerStarting = true;
         Game game = new Game(playerStarting);
     }
