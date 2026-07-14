@@ -6,18 +6,18 @@ public class Game{
 
     boolean running = true;
     
-    public Game(){
-        runGame();
+    public Game(boolean playerStarting){
+        runGame(playerStarting);
     }
 
-    private void runGame(){
+    private void runGame(boolean playerStarting){
         int startingDepth = 6;
         int[][] state = new int[2][6];
         for (int i = 0; i < 6; i++){
             state[0][i] = 4;
             state[1][i] = 4;
         }
-        Board board = new Board(false, state, 0, 0);
+        Board board = new Board(playerStarting, state, 0, 0);
         Scanner sc = new Scanner(System.in);
         boolean running = true;
         System.out.println("Startaufstellung:  " + "\n" + board.toString() + "\n-------------");
