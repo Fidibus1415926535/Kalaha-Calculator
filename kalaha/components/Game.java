@@ -11,7 +11,6 @@ public class Game{
     }
 
     private void runGame(){
-        int depth = 1;
         int[][] state = new int[2][6];
         for (int i = 0; i < 6; i++){
             state[0][i] = 4;
@@ -20,8 +19,9 @@ public class Game{
         Board board = new Board(true, state, 0, 0);
         Scanner sc = new Scanner(System.in);
         boolean running = true;
-        System.out.println("Startaufstellung:  " + "\n" + board.toString());
+        System.out.println("Startaufstellung:  " + "\n" + board.toString() + "\n-------------");
         while (running){
+            System.out.println("Player Turn: " + board.myTurn());
             if (board.myTurn()){
                 System.out.print(">>> ");
                 board.handleMove(sc.nextInt());
@@ -33,6 +33,7 @@ public class Game{
                 board.handleMove(bestMove.y);
                 System.out.println(board.toString());
             }
+            System.out.println("-----------------------------");
         }
     }
 }

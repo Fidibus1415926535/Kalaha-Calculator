@@ -92,10 +92,10 @@ public class Board{
     }
 
     public void incrementOwnKalaha(int value){
-        this.ownKalaha++;
+        this.ownKalaha += value;
     }
 
     public void incrementOppKalaha(int value){
-        this.oppKalaha++;
+        this.oppKalaha += value;
     }
 }
