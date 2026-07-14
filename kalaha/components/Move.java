@@ -12,6 +12,7 @@ public class Move{
     }
 
     private void calculateResultBoard(int move){
+        boolean lastInKalaha = false;
         int[][] state = resultBoard.getState();
         boolean myTurn = resultBoard.getMyTurn();
         int currentRow = myTurn ? 1 : 0;
@@ -29,13 +30,16 @@ public class Move{
                 if (myTurn && stonesLeft > 0){
                     resultBoard.incrementOwnKalaha(1);
                     stonesLeft--;
-                    if (stonesLeft == 0) this.resultBoard.toggleTurn(); //man ist nochmal dran
+                    if (stonesLeft == 0) {
+                        this.resultBoard.toggleTurn(); //man ist nochmal dran
+                        lastInKalaha = true;
+                    }
                 }
 
                 move--;
 
-                if (state[1][move] == 1 && stonesLeft == 0 && myTurn && state[0][move] != 0){
-                    System.out.println("Incrementing own by " + (state[1][move] + state[0][move]));
+                if (state[1][move] == 1 && stonesLeft == 0 && myTurn && state[0][move] != 0 && !lastInKalaha){
+                    //System.out.println("Incrementing own by " + (state[1][move] + state[0][move]));
                     resultBoard.incrementOwnKalaha(state[1][move] + state[0][move]);
                     state[1][move] = 0;
                     state[0][move] = 0;
@@ -51,12 +55,16 @@ public class Move{
                 if (!myTurn && stonesLeft > 0){
                     resultBoard.incrementOppKalaha(1);
                     stonesLeft--;
-                    if (stonesLeft == 0) this.resultBoard.toggleTurn(); //man ist nochmal dran
+                    if (stonesLeft == 0) {
+                        this.resultBoard.toggleTurn(); //man ist nochmal dran
+                        lastInKalaha = true;
+                    }
                 }
 
                 move++;
-                if (state[0][move] == 1 && stonesLeft == 0 && !myTurn && state[1][move] != 0){
-                    System.out.println("Incrementing opp by " + (state[1][move] + state[0][move]));
+                
+                if (state[0][move] == 1 && stonesLeft == 0 && !myTurn && state[1][move] != 0 && !lastInKalaha){
+                    //System.out.println("Incrementing opp by " + (state[1][move] + state[0][move]));
                     resultBoard.incrementOppKalaha(state[1][move] + state[0][move]);
                     state[1][move] = 0;
                     state[0][move] = 0;

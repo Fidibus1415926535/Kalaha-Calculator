@@ -16,7 +16,7 @@ public class Game{
             state[0][i] = 4;
             state[1][i] = 4;
         }
-        Board board = new Board(true, state, 0, 0);
+        Board board = new Board(false, state, 0, 0);
         Scanner sc = new Scanner(System.in);
         boolean running = true;
         System.out.println("Startaufstellung:  " + "\n" + board.toString() + "\n-------------");
@@ -29,7 +29,7 @@ public class Game{
             }
             else{
                 Point bestMove = board.calculateBestMove(); 
-                System.out.println("Bester Move: "+ bestMove.y  + " Evaluation: " + bestMove.y);
+                System.out.println("Bester Move: "+ bestMove.y  + " Evaluation: " + bestMove.x);
                 board.handleMove(bestMove.y);
                 System.out.println(board.toString());
             }
