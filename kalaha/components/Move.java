@@ -98,17 +98,19 @@ public class Move{
 
         int row = playerTurn ? 1 : 0;  
         for (int i = 0; i < 6; i++){
-            if (this.resultBoard.getState()[row][i] !=  0){
+            if (this.resultBoard.getState()[row][i] != 0){
                 moves[i] = new Move(this.resultBoard, i);
             }
         }
 
         if (playerTurn){
-            Point minResult = new Point(100, -1);
+            Point minResult = new Point(100, -1); //das ist das Result, dass anzeigt wenn nichts getroffen wurde
             for (int i = 0; i < 6; i++){
                 //System.out.println("\nPlayerturn " + i + ":");
                 if (moves[i] != null){
                     Point currentResult = moves[i].calculateBestMove(depth - 1);
+                    if (currentResult == null) continue; //skippt alle results, die nichts treffen. Wenn alle failen kommt 
+                    //der Default von minResult zurück inst spiel
                     if (currentResult.x < minResult.x){
                         minResult.x = currentResult.x;
                         minResult.y = i;
@@ -116,6 +118,7 @@ public class Move{
                 }
             }
             //System.out.println("Returning " + minResult.y + " with eval: " + minResult.x);
+            if (minResult.y == -1) return null; 
             return (minResult);
         }
         else{
@@ -124,6 +127,7 @@ public class Move{
                 //System.out.println("\nBottturn " + i + ":");
                 if (moves[i] != null){
                     Point currentResult = moves[i].calculateBestMove(depth - 1);
+                    if (currentResult == null) continue;
                     if (currentResult.x > maxResult.x){
                         maxResult.x = currentResult.x;
                         maxResult.y = i;
@@ -131,6 +135,7 @@ public class Move{
                 }
             }
             //System.out.println("Returning: " + maxResult.y + " with eval: " + maxResult.x);
+            if (maxResult.y == -1) return null;
             return (maxResult);
         }
     }

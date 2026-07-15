@@ -11,7 +11,7 @@ public class Game{
     }
 
     private void runGame(boolean playerStarting){
-        int startingDepth = 6;
+        int startingDepth = 9;
         int[][] state = new int[2][6];
         for (int i = 0; i < 6; i++){
             state[0][i] = 4;
@@ -30,8 +30,8 @@ public class Game{
             }
             else{
                 Point bestMove = board.calculateBestMove(startingDepth); 
-                System.out.println("Bester Move: "+ bestMove.y  + " Evaluation: " + bestMove.x);
-                if (bestMove.y != -1){
+                if (bestMove != null){
+                    System.out.println("Bester Move: "+ bestMove.y  + " Evaluation: " + bestMove.x);
                     board.handleMove(bestMove.y);
                     System.out.println(board.toString());
                 }

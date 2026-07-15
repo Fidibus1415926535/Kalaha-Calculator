@@ -22,6 +22,7 @@ public class Board{
         Point result = new Point();
         Move minimaxRoot = new Move(this, -1);
         Point idk = minimaxRoot.calculateBestMove(depth);
+        if (idk == null) return null;
         result.x = idk.x;
         result.y = idk.y;
         return result;
